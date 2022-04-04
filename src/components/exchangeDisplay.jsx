@@ -5,15 +5,12 @@ export default function ExchangeDisplay(props) {
   const { currencyInput, currencyFrom, currencyTo, convertRes } = props;
   const [currentTime, setCurrentTime] = useState("");
 
-  let time = new Date();
-  let currentDate = time.toDateString();
-
   useEffect(() => {
-    setCurrentTime(time.toLocaleTimeString());
-  });
+    setCurrentTime(new Date().toLocaleTimeString());
+  }, []);
 
   setInterval(() => {
-    setCurrentTime(time.toLocaleTimeString());
+    setCurrentTime(new Date().toLocaleTimeString());
   }, 1000);
 
   return (
@@ -38,7 +35,7 @@ export default function ExchangeDisplay(props) {
 
       <div className="col-12 row m-0 mt-2 mt-md-3 justify-content-end">
         <div className="col-md-6 text-md-end">
-          {currentDate}, {currentTime}
+          {new Date().toLocaleDateString()}, {currentTime}
         </div>
       </div>
     </div>

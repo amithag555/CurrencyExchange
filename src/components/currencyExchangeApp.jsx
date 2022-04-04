@@ -34,7 +34,7 @@ export default function CurrencyExchangeApp() {
       </main>
 
       <footer>
-        <div>Amit Hagbi - 2022</div>
+        <div>&copy; 2022 Amit Hagbi</div>
       </footer>
     </div>
   );

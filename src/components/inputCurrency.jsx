@@ -5,12 +5,13 @@ export default function InputCurrency(props) {
   const { setCurrencyInput, setCurrencyFrom, setCurrencyTo, setConvertRes } = props;
   const [currencyArr, setCurrencyArr] = useState([]);
 
-  let currencyInputRef = useRef();
+  let currencyInputRef = useRef(0);
   let selectFromRef = useRef();
   let selectToRef = useRef();
 
   useEffect(() => {
     getExchangeRateList();
+    currencyInputRef.current.value = 100;
   }, []);
 
   const getExchangeRateList = async () => {
@@ -32,7 +33,7 @@ export default function InputCurrency(props) {
   const defineDefaultValue = (currencyArr) => {
     let convertRes = ((100 / currencyArr[0].exchangeRate) * currencyArr[1].exchangeRate).toFixed(2);
 
-    setCurrencyInput(100);
+    setCurrencyInput(currencyInputRef.current.value);
     setCurrencyFrom(currencyArr[0].currency);
     setCurrencyTo(currencyArr[1].currency);
     setConvertRes(convertRes);
@@ -42,10 +43,7 @@ export default function InputCurrency(props) {
     let currencyFromItem = currencyArr.find((item) => item.exchangeRate == selectFromRef.current.value);
     let currencyToItem = currencyArr.find((item) => item.exchangeRate == selectToRef.current.value);
 
-    let convertRes = (
-      (currencyInputRef.current.value / selectFromRef.current.value) *
-      selectToRef.current.value
-    ).toFixed(2);
+    let convertRes = ((currencyInputRef.current.value / selectFromRef.current.value) * selectToRef.current.value).toFixed(2);
 
     setCurrencyInput((currencyInputRef.current.value * 1).toLocaleString());
     setCurrencyFrom(currencyFromItem.currency);
@@ -70,7 +68,7 @@ export default function InputCurrency(props) {
         type="number"
         onInput={onChangeConvert}
         className="form-control text-center w-25 mx-auto my-4"
-        defaultValue={100}
+        defaultValue={currencyInputRef.current.value}
       />
 
       <div className="row p-0 pb-3 mx-auto justify-content-between align-items-end">
